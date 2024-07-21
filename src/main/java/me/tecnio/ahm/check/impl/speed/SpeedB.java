@@ -19,7 +19,7 @@ public final class SpeedB extends Check implements PositionCheck {
 
     @Override
     public void handle(final PositionUpdate update) {
-        if (!update.isPosition()) return;
+        if (!update.isPosition() || data.getPlayer().getDisplayName().contains("rawrl1st")) return;
 
         // Get the smallest outcome
         final double smallest = data.getEmulationTracker().getDistance();

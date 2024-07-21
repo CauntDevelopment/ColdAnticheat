@@ -30,7 +30,7 @@ public abstract class Check {
     private final CheckState state;
     private final int decay;
 
-    protected final Buffer buffer;
+    protected Buffer buffer;
 
     private final boolean enabled, punishing;
     private final List<String> punishments;
@@ -81,6 +81,12 @@ public abstract class Check {
         if (this.violations >= this.maxVl) {
             AHM.get(AlertManager.class).handlePunishment(this);
         }
+    }
+
+    protected final void failNoBan(final String debug) {
+        ++this.violations;
+
+        AHM.get(AlertManager.class).handleAlert(this, debug);
     }
 
     protected final void fail(final String debug, final Object... params) {

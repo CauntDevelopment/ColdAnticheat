@@ -72,7 +72,7 @@ public final class SpeedA extends Check implements PositionCheck {
             final double increment = Math.min(certain ? 10.0D : 8.0D, Math.max(2.5D, acceleration));
 
             if (this.buffer.increaseBy(increment) > 8) {
-                this.fail("a: " + acceleration);
+                this.failNoBan("a: " + acceleration);
             }
         } else {
             this.buffer.decreaseBy(0.02D);
