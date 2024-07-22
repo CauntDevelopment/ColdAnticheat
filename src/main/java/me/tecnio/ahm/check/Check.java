@@ -1,5 +1,8 @@
 package me.tecnio.ahm.check;
 
+import ac.artemis.packet.wrapper.server.PacketPlayServerPosition;
+import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientPositionLook;
+import cc.ghast.packet.wrapper.packet.play.server.GPacketPlayServerPosition;
 import lombok.Getter;
 import lombok.Setter;
 import me.tecnio.ahm.AHM;
@@ -12,8 +15,12 @@ import me.tecnio.ahm.data.PlayerData;
 import me.tecnio.ahm.exempt.ExemptType;
 import me.tecnio.ahm.util.string.ChatUtil;
 import org.atteo.classindex.IndexSubclasses;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import java.util.List;
 
@@ -87,6 +94,16 @@ public abstract class Check {
         ++this.violations;
 
         AHM.get(AlertManager.class).handleAlert(this, debug);
+
+    }
+
+    protected final void executeSetback() {
+        Location loc = player.getLocation();
+
+        if(player.getWorld().getBlockAt(loc.add(0, -1, 0)).getType() == Material.AIR) {
+            player.getLocation().setY(player.getLocation().getY() - 1);
+        }
+
     }
 
     protected final void fail(final String debug, final Object... params) {

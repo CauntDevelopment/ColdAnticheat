@@ -19,7 +19,7 @@ public class AlertManager {
     private final Set<PlayerData> players = new HashSet<>();
 
     private final String format = ChatUtil.translate(
-            "&7[&4AHM&7] &c%player% &7failed &c%check% &7(&cType %type%&7) &cx%vl%%dev%"
+            "&7[&b&lCold AC&7] &b%player% &ffailed &b%check% %type% &7[&3x%vl%%dev%&7]"
     );
 
     private final AlertHandler alertHandler = new AlertHandlerFactory().build();

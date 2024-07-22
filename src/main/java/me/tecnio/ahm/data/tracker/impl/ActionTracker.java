@@ -18,7 +18,7 @@ import org.bukkit.entity.Entity;
 public final class ActionTracker extends Tracker {
 
     private Entity target;
-    private boolean sprinting, lastSprinting, sneaking, lastSneaking;
+    private boolean sprinting, lastSprinting, sneaking, lastSneaking, eating;
 
     private final TickTimer attackTimer = new TickTimer(data);
     private int hits;

@@ -21,12 +21,14 @@ public class FlightC extends Check implements PositionCheck {
     public void handle(PositionUpdate update) {
         boolean exempt = this.isExempt(ExemptType.FLIGHT, ExemptType.CHUNK, ExemptType.JOIN,
                 ExemptType.TELEPORT, ExemptType.EXPLOSION, ExemptType.VELOCITY,
-                ExemptType.WEB) || data.getPositionTracker().isWater() ||
-                data.getPositionTracker().isLava();
+                ExemptType.WEB, ExemptType.STEP, ExemptType.SLIME, ExemptType.CLIMBABLE,
+                ExemptType.LIQUID);
 
         if(data.getPositionTracker().getY() > data.getPositionTracker().getLastY() && !update.isOnGround() && !exempt) {
-            if(this.buffer.increase() >= 15)
+            if(this.buffer.increase() >= 15) {
                 this.failNoBan("");
+                this.executeSetback();
+            }
         } else {
             this.buffer.setBuffer(0);
         }

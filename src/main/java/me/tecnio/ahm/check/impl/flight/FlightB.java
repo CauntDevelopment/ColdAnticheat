@@ -23,12 +23,13 @@ public class FlightB extends Check implements PositionCheck {
 
         boolean exempt = this.isExempt(ExemptType.FLIGHT, ExemptType.CHUNK, ExemptType.JOIN,
                 ExemptType.TELEPORT, ExemptType.EXPLOSION, ExemptType.VELOCITY,
-                ExemptType.WEB) || data.getPositionTracker().isWater() ||
-                data.getPositionTracker().isLava();
+                ExemptType.WEB, ExemptType.STEP, ExemptType.SLIME, ExemptType.CLIMBABLE,
+                ExemptType.LIQUID);
 
-        if(motionY > 0.1D && !update.isOnGround()) {
-            if(this.buffer.increase() > 10 && !exempt) {
+        if(motionY > 0.1D && !update.isOnGround() && !exempt) {
+            if(this.buffer.increase() > 10) {
                 this.failNoBan("");
+                this.executeSetback();
             }
         } else {
             this.buffer.setBuffer(0);

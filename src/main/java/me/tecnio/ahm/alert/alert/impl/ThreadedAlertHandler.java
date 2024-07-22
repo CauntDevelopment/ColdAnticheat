@@ -34,11 +34,11 @@ public class ThreadedAlertHandler implements AlertHandler {
                     .replaceAll("%type%", check.getType()));
 
             final String hover = ChatUtil.translate(String.join("\n", Arrays.asList(
-                    "&c" + description,
+                    "&3" + description,
                     " ",
                     "&7" + information,
                     " ",
-                    "&cPing: &7" + ping + "ms" + " &cMaxVl: &7" + max + " &cState: &7" + state)));
+                    "&bPing: &7" + ping + "ms" + " &bMaxVl: &7" + max + " &bState: &7" + state)));
 
             final TextComponent alertMessage = new TextComponent(message);
             final BaseComponent[] baseComponents = new ComponentBuilder(hover).create();

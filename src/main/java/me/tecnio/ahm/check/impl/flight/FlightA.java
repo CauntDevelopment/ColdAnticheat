@@ -21,11 +21,14 @@ public class FlightA extends Check implements PositionCheck {
     @Override
     public void handle(PositionUpdate update) {
         boolean exempt = this.isExempt(ExemptType.CHUNK, ExemptType.BOAT, ExemptType.FLIGHT,
-                ExemptType.JOIN, ExemptType.TELEPORT, ExemptType.UNDER_BLOCK);
+                ExemptType.JOIN, ExemptType.TELEPORT, ExemptType.UNDER_BLOCK,
+                ExemptType.STEP);
 
         if(data.getPositionTracker().getLastY() == data.getPositionTracker().getLastLastY() && !exempt && !update.isOnGround()) {
-            if(this.buffer.increase() > 15)
+            if(this.buffer.increase() > 5) {
                 this.failNoBan("y=" + data.getPositionTracker().getY() + "==" + data.getPositionTracker().getLastLastY());
+                this.executeSetback();
+            }
         } else {
             this.buffer.setBuffer(0);
         }

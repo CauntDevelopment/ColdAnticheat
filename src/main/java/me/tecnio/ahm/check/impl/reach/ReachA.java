@@ -9,6 +9,7 @@ import me.tecnio.ahm.check.Check;
 import me.tecnio.ahm.check.api.annotations.CheckManifest;
 import me.tecnio.ahm.check.type.PacketCheck;
 import me.tecnio.ahm.data.PlayerData;
+import me.tecnio.ahm.data.tracker.impl.ConnectionTracker;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
@@ -35,31 +36,37 @@ public class ReachA extends Check implements PacketCheck {
                 if(attacked == packet.getPlayer()) return;
 
                 Location attackedLoc = attacked.getLocation();
-                Location playerLoc = packet.getPlayer().getLocation();
+                Location playerLoc = data.getPositionTracker().getLocation();
 
-                double distance = getDistanceBetween(new Vector3D((float) playerLoc.getX(),
-                                (float) playerLoc.getY(),
-                                (float)playerLoc.getZ()),
-                                new Vector3D((float) attackedLoc.getX(), (float) attackedLoc.getY(), (float) attackedLoc.getZ()));
+                double distance = getDistanceBetween(
+                        new Vector3D((float) playerLoc.getX(), (float) playerLoc.getY(), (float)playerLoc.getZ()),
+                        new Vector3D((float) attackedLoc.getX(), (float) attackedLoc.getY(), (float) attackedLoc.getZ())
+                );
 
-                if(distance > 3.4 && receivedTransaction) {
+                if(distance > (calculateReachWithPing() + 0.03)) {
                     this.failNoBan("range: " + distance);
                 }
             }
-        } else if(packet instanceof GPacketPlayClientTransaction) {
-            receivedTransaction = true;
-        } else if(packet instanceof GPacketPlayClientFlying) {
-            receivedTransaction = false;
         } else if(packet instanceof GPacketPlayClientPosition) {
             lastPosition = System.currentTimeMillis();
         }
     }
 
     public double getDistanceBetween(Vector3D from, Vector3D to) {
-        double xDiff = Math.abs(to.getX() - from.getX());
-        double yDiff = Math.abs(to.getY() - from.getY());
-        double zDiff = Math.abs(to.getZ() - from.getZ());
+        double xDiff = Math.abs(from.getX() - to.getX());
+        double yDiff = Math.abs(from.getY() - to.getY());
+        double zDiff = Math.abs(from.getZ() - to.getZ());
 
-        return Math.sqrt(xDiff * xDiff + yDiff * yDiff + zDiff * zDiff);
+        return Math.sqrt(xDiff * xDiff + yDiff * yDiff + zDiff * zDiff) - 1;
     }
+
+    private double calculateReachWithPing() {
+        double ping = data.getConnectionTracker().getKeepAlivePing();
+
+        double baseDistance = 3.0;
+        double extraDistance = (10 / ping) * 0.1;
+
+        return baseDistance + extraDistance;
+    }
+
 }

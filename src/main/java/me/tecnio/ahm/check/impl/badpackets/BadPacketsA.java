@@ -23,15 +23,18 @@ public class BadPacketsA extends Check implements PacketCheck {
 
     @Override
     public void handle(GPacket packet) {
-        if(packet instanceof GPacketPlayClientTransaction) {
-            lastTransaction = System.currentTimeMillis();
-        } else if(packet instanceof GPacketPlayClientKeepAlive) {
-            transactionSent = System.currentTimeMillis() - lastTransaction < 25000;
-        } else if(packet instanceof GPacketPlayClientPosition) {
-            boolean exempt = this.isExempt(ExemptType.CHUNK, ExemptType.TELEPORT, ExemptType.JOIN);
-            if(!transactionSent && !exempt) {
-                this.failNoBan("no transaction");
+        /*
+            if(packet instanceof GPacketPlayClientTransaction) {
+                lastTransaction = System.currentTimeMillis();
+            } else if(packet instanceof GPacketPlayClientKeepAlive) {
+                transactionSent = System.currentTimeMillis() - lastTransaction <= 1000;
+            } else if(packet instanceof GPacketPlayClientFlying) {
+                boolean exempt = this.isExempt(ExemptType.CHUNK, ExemptType.TELEPORT, ExemptType.JOIN);
+                if(!transactionSent && !exempt) {
+                    this.failNoBan("no transaction");
+                }
             }
-        }
+
+         */
     }
 }
