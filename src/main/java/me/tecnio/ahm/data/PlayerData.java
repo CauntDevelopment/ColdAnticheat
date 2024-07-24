@@ -18,6 +18,9 @@ import me.tecnio.ahm.processor.impl.OutgoingPacketProcessor;
 import me.tecnio.ahm.update.PositionUpdate;
 import me.tecnio.ahm.update.RotationUpdate;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -90,6 +93,21 @@ public final class PlayerData {
                 .map(check -> ((RotationCheck) check)).collect(Collectors.toList());
 
         if (this.player.hasPermission("ahm.alerts")) AHM.get(AlertManager.class).toggleAlerts(this);
+    }
+
+    public boolean blockCheck(Material material) {
+        Location location = player.getLocation();
+        World world = player.getWorld();
+
+        double y = location.getY();
+
+        for(double posY = y; posY < y + 1; posY--) {
+            if(world.getBlockAt(location.getBlockX(), (int) posY, location.getBlockZ()).getType().equals(material)) {
+                return true;
+            }
+        }
+
+        return true;
     }
 
     public void terminate() {

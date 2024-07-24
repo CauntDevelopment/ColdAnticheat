@@ -1,6 +1,7 @@
 package me.tecnio.ahm.check.impl.autoclicker;
 
 import ac.artemis.packet.spigot.wrappers.GPacket;
+import ac.artemis.packet.wrapper.client.PacketPlayClientFlying;
 import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientArmAnimation;
 import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientFlying;
 import me.tecnio.ahm.check.Check;
@@ -23,7 +24,7 @@ public class AutoClickerA extends Check implements PacketCheck {
             cps++;
         }
 
-        if(packet instanceof GPacketPlayClientFlying) {
+        if(packet instanceof PacketPlayClientFlying) {
             if(++flying > 20) {
                 if(cps > 20) {
                     this.failNoBan("cps: " + cps);

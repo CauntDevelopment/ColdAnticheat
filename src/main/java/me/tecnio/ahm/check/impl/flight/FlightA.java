@@ -27,7 +27,7 @@ public class FlightA extends Check implements PositionCheck {
         if(data.getPositionTracker().getLastY() == data.getPositionTracker().getLastLastY() && !exempt && !update.isOnGround()) {
             if(this.buffer.increase() > 5) {
                 this.failNoBan("y=" + data.getPositionTracker().getY() + "==" + data.getPositionTracker().getLastLastY());
-                this.executeSetback();
+                this.executeSetback(true, false);
             }
         } else {
             this.buffer.setBuffer(0);

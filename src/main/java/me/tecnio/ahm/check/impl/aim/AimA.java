@@ -33,8 +33,8 @@ public class AimA extends Check implements RotationCheck {
         float pitchSpeed = Math.abs(pitchDist - oldPitchDist);
 
         if(currentYaw != update.getLastYaw()) {
-            if(yawDist > 0.6 || pitchDist > 0.6) {
-                boolean invalid = yawSpeed == 0.0D || yawDist == oldYawDist || pitchDist == oldPitchDist && pitchDist > 0.5;
+            if(yawDist > 1) {
+                boolean invalid = yawSpeed == 0.0D || yawDist == oldYawDist || pitchDist == oldPitchDist && pitchDist > 1;
                 if(invalid && this.buffer.increase() > 6) {
                     this.failNoBan("static speed: " + yawSpeed + " " + pitchSpeed);
                 }

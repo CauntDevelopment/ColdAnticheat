@@ -2,6 +2,7 @@ package me.tecnio.ahm.check;
 
 import ac.artemis.packet.wrapper.server.PacketPlayServerPosition;
 import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientPositionLook;
+import cc.ghast.packet.wrapper.packet.play.server.GPacketPlayServerEntityTeleport;
 import cc.ghast.packet.wrapper.packet.play.server.GPacketPlayServerPosition;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import me.tecnio.ahm.check.api.annotations.CheckManifest;
 import me.tecnio.ahm.check.api.enums.CheckState;
 import me.tecnio.ahm.config.ConfigManager;
 import me.tecnio.ahm.data.PlayerData;
+import me.tecnio.ahm.data.tracker.impl.PositionTracker;
 import me.tecnio.ahm.exempt.ExemptType;
 import me.tecnio.ahm.util.string.ChatUtil;
 import org.atteo.classindex.IndexSubclasses;
@@ -97,13 +99,19 @@ public abstract class Check {
 
     }
 
-    protected final void executeSetback() {
-        Location loc = player.getLocation();
+    protected final void executeSetback(boolean brokenYaw, boolean brokenPitch) {
+        PositionTracker tracker = data.getPositionTracker();
 
-        if(player.getWorld().getBlockAt(loc.add(0, -1, 0)).getType() == Material.AIR) {
-            player.getLocation().setY(player.getLocation().getY() - 1);
+        Location loc = tracker.getLastLocation();
+        if(brokenYaw) {
+            loc.setYaw((float) (loc.getYaw() - Math.random() * 180));
         }
 
+        if(brokenPitch) {
+            loc.setPitch((float) (0 + Math.random() * 90));
+        }
+
+        data.getPlayer().teleport(loc);
     }
 
     protected final void fail(final String debug, final Object... params) {

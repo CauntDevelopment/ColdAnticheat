@@ -2,6 +2,7 @@ package me.tecnio.ahm.exempt;
 
 import lombok.Getter;
 import me.tecnio.ahm.data.PlayerData;
+import org.bukkit.Material;
 import org.bukkit.util.NumberConversions;
 
 import java.util.function.Function;

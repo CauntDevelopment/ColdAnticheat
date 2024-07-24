@@ -1,21 +1,17 @@
 package me.tecnio.ahm.check.impl.badpackets;
 
 import ac.artemis.packet.spigot.wrappers.GPacket;
-import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientFlying;
-import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientKeepAlive;
-import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientPosition;
-import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientTransaction;
+import ac.artemis.packet.wrapper.client.PacketPlayClientUseEntity;
+import cc.ghast.packet.wrapper.mc.PlayerEnums;
+import cc.ghast.packet.wrapper.packet.play.client.*;
 import me.tecnio.ahm.check.Check;
 import me.tecnio.ahm.check.api.annotations.CheckManifest;
 import me.tecnio.ahm.check.type.PacketCheck;
 import me.tecnio.ahm.data.PlayerData;
 import me.tecnio.ahm.exempt.ExemptType;
 
-@CheckManifest(name = "BadPackets", type = "A", description = "Detects transaction cancels.")
+@CheckManifest(name = "BadPackets", type = "A", description = "Blocking while attacking / autoblock")
 public class BadPacketsA extends Check implements PacketCheck {
-
-    private long lastPosition, lastTransaction;
-    private boolean transactionSent;
 
     public BadPacketsA(PlayerData data) {
         super(data);
@@ -23,18 +19,13 @@ public class BadPacketsA extends Check implements PacketCheck {
 
     @Override
     public void handle(GPacket packet) {
-        /*
-            if(packet instanceof GPacketPlayClientTransaction) {
-                lastTransaction = System.currentTimeMillis();
-            } else if(packet instanceof GPacketPlayClientKeepAlive) {
-                transactionSent = System.currentTimeMillis() - lastTransaction <= 1000;
-            } else if(packet instanceof GPacketPlayClientFlying) {
-                boolean exempt = this.isExempt(ExemptType.CHUNK, ExemptType.TELEPORT, ExemptType.JOIN);
-                if(!transactionSent && !exempt) {
-                    this.failNoBan("no transaction");
-                }
-            }
+        if(packet instanceof GPacketPlayClientUseEntity) {
+            GPacketPlayClientUseEntity wrapper = (GPacketPlayClientUseEntity) packet;
 
-         */
+            if(wrapper.getType() == PlayerEnums.UseType.ATTACK && data.getActionTracker().isBlocking()) {
+                this.failNoBan("");
+                data.getPlayer().setHealth(data.getPlayer().getHealth() - 2);
+            }
+        }
     }
 }
