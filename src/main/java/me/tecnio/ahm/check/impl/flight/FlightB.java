@@ -21,7 +21,7 @@ public final class FlightB extends Check implements PositionCheck {
     public void handle(final PositionUpdate update) {
         final boolean exempt = this.isExempt(ExemptType.CLIMBABLE, ExemptType.PISTON, ExemptType.SLIME,
                 ExemptType.VEHICLE, ExemptType.FLIGHT, ExemptType.TELEPORT, ExemptType.UNDER_BLOCK, ExemptType.WEB, ExemptType.LIQUID,
-                ExemptType.TELEPORTED_RECENTLY);
+                ExemptType.TELEPORTED_RECENTLY, ExemptType.VELOCITY);
 
         if(exempt) return;
 
