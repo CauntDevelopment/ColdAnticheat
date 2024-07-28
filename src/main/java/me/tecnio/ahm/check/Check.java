@@ -99,6 +99,14 @@ public abstract class Check {
 
     }
 
+    protected final void executeSetbackToPosition(double x, double y, double z) {
+        PositionTracker tracker = data.getPositionTracker();
+
+        Location loc = new Location(data.getPlayer().getWorld(), x, y, z);
+
+        data.getPlayer().teleport(loc);
+    }
+
     protected final void executeSetback(boolean brokenYaw, boolean brokenPitch) {
         PositionTracker tracker = data.getPositionTracker();
 

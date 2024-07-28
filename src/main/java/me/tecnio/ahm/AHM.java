@@ -12,6 +12,7 @@ import me.tecnio.ahm.command.impl.DefaultCommand;
 import me.tecnio.ahm.command.impl.InfoCommand;
 import me.tecnio.ahm.config.ConfigManager;
 import me.tecnio.ahm.data.PlayerDataManager;
+import me.tecnio.ahm.listener.bukkit.PlayerDataListener;
 import me.tecnio.ahm.listener.bukkit.RegistrationListener;
 import me.tecnio.ahm.listener.network.NetworkListener;
 import me.tecnio.ahm.util.registry.ServiceRegistry;
@@ -88,6 +89,7 @@ public enum AHM {
 
     private void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new RegistrationListener(), this.plugin);
+        Bukkit.getPluginManager().registerEvents(new PlayerDataListener(), this.plugin);
     }
 
     private void registerPacketAPI() {

@@ -110,6 +110,19 @@ public final class PlayerData {
         return true;
     }
 
+    public boolean isScaffolding() {
+        World world = player.getWorld();
+
+        Location xMinus1 = player.getLocation().add(-1, 0, 0);
+        Location zMinus1 = player.getLocation().add(0, 0, -1);
+
+        if(world.getBlockAt(xMinus1).getType() == Material.AIR && world.getBlockAt(zMinus1).getType() == Material.AIR) {
+            return  true;
+        }
+
+        return false;
+    }
+
     public void terminate() {
         AHM.get(AlertManager.class).getPlayers().remove(this);
     }

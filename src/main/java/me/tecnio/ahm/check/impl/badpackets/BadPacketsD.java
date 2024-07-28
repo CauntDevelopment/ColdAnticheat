@@ -2,6 +2,8 @@ package me.tecnio.ahm.check.impl.badpackets;
 
 import ac.artemis.packet.spigot.wrappers.GPacket;
 import ac.artemis.packet.wrapper.client.PacketPlayClientFlying;
+import ac.artemis.packet.wrapper.client.PacketPlayClientKeepAlive;
+import ac.artemis.packet.wrapper.client.PacketPlayClientTransaction;
 import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientKeepAlive;
 import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientTransaction;
 import me.tecnio.ahm.check.Check;
@@ -20,11 +22,11 @@ public class BadPacketsD extends Check implements PacketCheck {
 
     @Override
     public void handle(GPacket packet) {
-        if(packet instanceof GPacketPlayClientTransaction) {
+        if(packet instanceof PacketPlayClientTransaction) {
             lastTransaction = packet.getTimestamp();
         }
 
-        if(packet instanceof GPacketPlayClientKeepAlive) {
+        if(packet instanceof PacketPlayClientKeepAlive) {
             lastKeepAlive = packet.getTimestamp();
         }
 

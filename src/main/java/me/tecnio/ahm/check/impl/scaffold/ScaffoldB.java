@@ -7,6 +7,7 @@ import me.tecnio.ahm.check.Check;
 import me.tecnio.ahm.check.api.annotations.CheckManifest;
 import me.tecnio.ahm.check.type.PacketCheck;
 import me.tecnio.ahm.data.PlayerData;
+import me.tecnio.ahm.data.tracker.impl.PositionTracker;
 import me.tecnio.ahm.exempt.ExemptType;
 import net.minecraft.server.v1_8_R3.Blocks;
 import org.bukkit.GameMode;
@@ -25,7 +26,9 @@ public class ScaffoldB extends Check implements PacketCheck {
         if(packet instanceof GPacketPlayClientBlockPlace) {
             GPacketPlayClientBlockPlace wrapper = (GPacketPlayClientBlockPlace) packet;
 
-            boolean exempt = this.isExempt(ExemptType.FLIGHT) || data.getPlayer().getGameMode() != GameMode.SURVIVAL;
+            PositionTracker positionTracker = data.getPositionTracker();
+
+            boolean exempt = this.isExempt(ExemptType.FLIGHT) || data.getPlayer().getGameMode() != GameMode.SURVIVAL || wrapper.getPosition().getY() >= positionTracker.getY();
 
             if(exempt) {
                 this.buffer.setBuffer(0);
@@ -44,7 +47,7 @@ public class ScaffoldB extends Check implements PacketCheck {
                 double distance = getDistance(pos);
 
                 if(distance >= 5) {
-                    if(this.buffer.increase() > 3) {
+                    if(this.buffer.increase() > 2) {
                         this.failNoBan("dist: " + distance);
                     }
                 } else {

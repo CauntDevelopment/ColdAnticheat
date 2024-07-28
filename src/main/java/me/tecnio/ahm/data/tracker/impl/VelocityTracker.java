@@ -5,6 +5,7 @@ import ac.artemis.packet.wrapper.client.PacketPlayClientFlying;
 import ac.artemis.packet.wrapper.server.PacketPlayServerEntityVelocity;
 import ac.artemis.packet.wrapper.server.PacketPlayServerExplosion;
 import lombok.Getter;
+import lombok.Setter;
 import me.tecnio.ahm.data.PlayerData;
 import me.tecnio.ahm.data.tracker.Tracker;
 import me.tecnio.ahm.util.type.Motion;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 @Getter
+@Setter
 public final class VelocityTracker extends Tracker {
 
     // TODO: 8/27/23 use tick timers I forgot to use themn
@@ -22,7 +24,7 @@ public final class VelocityTracker extends Tracker {
     private Vector velocity = new Vector(), lastVelocity = new Vector();
     private int ticks, ticksSinceVelocity, maxVelocityTicks, velocityTicks;
 
-    private boolean lastTickVelocity;
+    private boolean lastTickVelocity, fellDown;
 
     private Vector explosion = new Vector();
     private int ticksSinceExplosion, maxExplosionTicks, explosionTicks;
@@ -39,6 +41,7 @@ public final class VelocityTracker extends Tracker {
             final PacketPlayServerEntityVelocity wrapper = ((PacketPlayServerEntityVelocity) packet);
 
             if (wrapper.getEntityId() == data.getPlayer().getEntityId()) {
+
                 final Vector velocity = new Vector(wrapper.getX() / 8000.0D, wrapper.getY() / 8000.0D, wrapper.getZ() / 8000.0D);
 
                 data.getConnectionTracker().confirm(() -> {
@@ -76,6 +79,10 @@ public final class VelocityTracker extends Tracker {
     public void handlePost(final GPacket packet) {
         if (packet instanceof PacketPlayClientFlying) {
             this.actions.clear();
+
+            if(this.velocityTicks > 4) {
+                this.fellDown = false;
+            }
 
             this.lastVelocity = this.velocity;
             this.lastTickVelocity = this.ticksSinceExplosion == 1 || this.ticksSinceVelocity == 1;

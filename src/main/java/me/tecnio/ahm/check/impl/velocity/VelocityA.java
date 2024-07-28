@@ -45,7 +45,8 @@ public class VelocityA extends Check implements PacketCheck {
         if(packet instanceof PacketPlayClientFlying) {
             boolean exempt = this.isExempt(ExemptType.FLIGHT, ExemptType.BOAT, ExemptType.VEHICLE, ExemptType.WEB,
                     ExemptType.TELEPORTED_RECENTLY, ExemptType.LIQUID, ExemptType.CLIMBABLE,
-                    ExemptType.SOUL_SAND, ExemptType.SLIME, ExemptType.UNDER_BLOCK);
+                    ExemptType.SOUL_SAND, ExemptType.SLIME, ExemptType.UNDER_BLOCK,
+                    ExemptType.FALL_VELO);
 
             if(exempt) return;
 

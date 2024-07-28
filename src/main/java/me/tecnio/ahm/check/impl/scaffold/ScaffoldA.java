@@ -12,6 +12,7 @@ import me.tecnio.ahm.check.Check;
 import me.tecnio.ahm.check.api.annotations.CheckManifest;
 import me.tecnio.ahm.check.type.PacketCheck;
 import me.tecnio.ahm.data.PlayerData;
+import me.tecnio.ahm.data.tracker.impl.PositionTracker;
 import me.tecnio.ahm.data.tracker.impl.RotationTracker;
 import me.tecnio.ahm.exempt.ExemptType;
 import me.tecnio.ahm.util.mcp.*;
@@ -34,7 +35,9 @@ public class ScaffoldA extends Check implements PacketCheck {
         if(packet instanceof GPacketPlayClientBlockPlace) {
             GPacketPlayClientBlockPlace wrapper = (GPacketPlayClientBlockPlace) packet;
 
-            boolean exempt = this.isExempt(ExemptType.FLIGHT) || data.getPlayer().getGameMode() != GameMode.SURVIVAL;
+            PositionTracker positionTracker = data.getPositionTracker();
+
+            boolean exempt = this.isExempt(ExemptType.FLIGHT) || data.getPlayer().getGameMode() != GameMode.SURVIVAL || wrapper.getPosition().getY() >= positionTracker.getY();
 
             if(exempt) {
                 this.buffer.setBuffer(0);
@@ -61,7 +64,7 @@ public class ScaffoldA extends Check implements PacketCheck {
                 MovingObjectPosition rayTrace = rayCast(tracker.getYaw(), tracker.getPitch(), false, boundingBox);
 
                 if (rayTrace == null || rayTrace.typeOfHit == MovingObjectPosition.MovingObjectType.MISS) {
-                    if(this.buffer.increase() > 12) {
+                    if(this.buffer.increase() > 6) {
                         this.failNoBan("");
                         this.executeSetback(true, false);
                     }

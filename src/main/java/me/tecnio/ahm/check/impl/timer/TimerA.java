@@ -7,6 +7,7 @@ import me.tecnio.ahm.check.Check;
 import me.tecnio.ahm.check.api.annotations.CheckManifest;
 import me.tecnio.ahm.check.type.PacketCheck;
 import me.tecnio.ahm.data.PlayerData;
+import me.tecnio.ahm.exempt.ExemptType;
 
 /**
  * Check to detect increased game tick-rate using a balance system.
@@ -23,6 +24,10 @@ public final class TimerA extends Check implements PacketCheck {
     @Override
     public void handle(final GPacket packet) {
         if (packet instanceof PacketPlayClientFlying) {
+            boolean exempt = this.isExempt(ExemptType.VEHICLE, ExemptType.JOIN, ExemptType.CHUNK);
+
+            if(exempt) return;
+
             handle: {
                 if (data.getTicks() < 200) break handle;
 
