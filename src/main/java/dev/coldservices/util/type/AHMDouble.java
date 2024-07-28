@@ -1,13 +1,13 @@
 package dev.coldservices.util.type;
 
-public final class NiceDouble {
+public final class AHMDouble {
 
     private double alpha;
 
-    public NiceDouble() {
+    public AHMDouble() {
     }
 
-    public NiceDouble(final double alpha) {
+    public AHMDouble(final double alpha) {
         this.alpha = alpha;
     }
 

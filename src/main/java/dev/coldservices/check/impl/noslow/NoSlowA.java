@@ -29,7 +29,7 @@ public class NoSlowA extends Check implements PositionCheck {
 
         if(exempt) return;
 
-        if(data.getActionTracker().isBlocking() || data.getEmulationTracker().isUsing()) {
+        if(data.getActionTracker().isBlocking() || data.getActionTracker().isEating() || data.getEmulationTracker().isUsing()) {
             double fallDistance = data.getPlayer().getFallDistance();
 
             if(data.getActionTracker().isSprinting() && fallDistance < 1) {

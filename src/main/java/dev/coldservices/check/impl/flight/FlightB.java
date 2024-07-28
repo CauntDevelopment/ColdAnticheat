@@ -21,11 +21,19 @@ public final class FlightB extends Check implements PositionCheck {
     public void handle(final PositionUpdate update) {
         final boolean exempt = this.isExempt(ExemptType.CLIMBABLE, ExemptType.PISTON, ExemptType.SLIME,
                 ExemptType.VEHICLE, ExemptType.FLIGHT, ExemptType.TELEPORT, ExemptType.UNDER_BLOCK, ExemptType.WEB, ExemptType.LIQUID,
-                ExemptType.TELEPORTED_RECENTLY, ExemptType.VELOCITY);
+                ExemptType.TELEPORTED_RECENTLY, ExemptType.VELOCITY, ExemptType.JOIN);
 
         if(exempt) return;
 
         if(this.isExempt(ExemptType.WALL) && data.getVelocityTracker().getTicksSinceVelocity() < 7) {
+            return;
+        }
+
+        boolean otherWise = data.getEmulationTracker().getDistance() <= 0 && data.getPositionTracker().isAirBelow() &&
+                data.getPositionTracker().getDeltaY() <= .1 || data.getPositionTracker().isAirBelow() && !data.getPositionTracker().isLastOnGround();
+
+        if(otherWise) {
+            this.buffer.setBuffer(0);
             return;
         }
 
