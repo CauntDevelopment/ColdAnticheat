@@ -23,6 +23,8 @@ public final class SpeedA extends Check implements PositionCheck {
 
     @Override
     public void handle(final PositionUpdate update) {
+        if(this.isExempt(ExemptType.JOIN)) return;
+
         final boolean onGround = data.getPositionTracker().isOnGround();
         final boolean lastOnGround = data.getPositionTracker().isLastOnGround();
 

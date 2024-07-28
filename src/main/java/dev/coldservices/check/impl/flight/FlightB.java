@@ -25,6 +25,10 @@ public final class FlightB extends Check implements PositionCheck {
 
         if(exempt) return;
 
+        if(this.isExempt(ExemptType.WALL) && data.getVelocityTracker().getTicksSinceVelocity() < 7) {
+            return;
+        }
+
         // Retrieve relevant data for analysis
         final boolean velocity = data.getVelocityTracker().getTicksSinceVelocity() == 1;
         final boolean lastVelocity = data.getVelocityTracker().isLastTickVelocity();

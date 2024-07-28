@@ -72,6 +72,10 @@ public final class VelocityTracker extends Tracker {
             ++this.ticks;
             ++this.ticksSinceVelocity;
             ++this.ticksSinceExplosion;
+
+            if(this.ticksSinceVelocity > 7) {
+                this.fellDown = false;
+            }
         }
     }
 
@@ -79,10 +83,6 @@ public final class VelocityTracker extends Tracker {
     public void handlePost(final GPacket packet) {
         if (packet instanceof PacketPlayClientFlying) {
             this.actions.clear();
-
-            if(this.velocityTicks > 4) {
-                this.fellDown = false;
-            }
 
             this.lastVelocity = this.velocity;
             this.lastTickVelocity = this.ticksSinceExplosion == 1 || this.ticksSinceVelocity == 1;

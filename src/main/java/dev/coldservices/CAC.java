@@ -100,8 +100,8 @@ public enum CAC {
                 new AlertsCommand(),
                 new InfoCommand(),
                 new ChecksCommand()
-        ).forEach(ahmCommand -> {
-            get(PaperCommandManager.class).registerCommand(ahmCommand);
+        ).forEach(niceCommand -> {
+            get(PaperCommandManager.class).registerCommand(niceCommand);
         });
     }
 

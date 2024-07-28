@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @Getter
-public class AHMCommand extends BaseCommand {
+public class NiceCommand extends BaseCommand {
 
     public void sendLineBreak(final CommandSender sender) {
         sender.sendMessage(ChatUtil.translate("&7&m-------------------------------------------------"));

@@ -2,6 +2,7 @@ package dev.coldservices.listener.bukkit;
 
 import dev.coldservices.CAC;
 import dev.coldservices.data.PlayerData;
+import dev.coldservices.data.PlayerDataManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,7 +19,7 @@ public class PlayerDataListener implements Listener {
             Player player = (Player) entity;
 
             if(event.getCause() == EntityDamageEvent.DamageCause.FALL) {
-                PlayerData data = CAC.INSTANCE.getDataManager().getPlayerData(player.getUniqueId());
+                PlayerData data = CAC.get(PlayerDataManager.class).getPlayerData(player.getUniqueId());
 
                 if(data == null) return;
 

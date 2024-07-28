@@ -41,7 +41,6 @@ public final class NetworkListener implements PacketListener {
         final PlayerData data = CAC.get(PlayerDataManager.class).getPlayerData(profile.getUuid());
 
         if (data != null) {
-            // TODO: 4/9/2023 switch to ahm executor
             if (packet instanceof PacketClient) data.getIncomingPacketProcessor().handle((GPacket) packet);
             else data.getOutgoingPacketProcessor().handle((GPacket) packet);
         }

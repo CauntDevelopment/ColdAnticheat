@@ -6,19 +6,19 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import dev.coldservices.CAC;
 import dev.coldservices.alert.AlertManager;
-import dev.coldservices.command.AHMCommand;
+import dev.coldservices.command.NiceCommand;
 import dev.coldservices.data.PlayerData;
 import dev.coldservices.data.PlayerDataManager;
 import dev.coldservices.util.string.ChatUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@CommandAlias("ahm")
-public class AlertsCommand extends AHMCommand {
+@CommandAlias("cac")
+public class AlertsCommand extends NiceCommand {
 
     @Subcommand("alerts")
     @Description("Toggles your anti-cheat alerts")
-    @CommandPermission("ahm.alerts")
+    @CommandPermission("coldac.alerts")
     public void onCommand(final CommandSender sender) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("This command can only be executed by players.");

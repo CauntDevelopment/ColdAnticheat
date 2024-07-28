@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class PlayerDataManager {
 
-    // skidded from OG AHM... W
     private final Map<UUID, PlayerData> playerDataMap = new ConcurrentHashMap<>();
 
     public PlayerData getPlayerData(final UUID uuid) {

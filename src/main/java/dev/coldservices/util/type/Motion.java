@@ -7,33 +7,33 @@ import org.bukkit.util.Vector;
 @Getter
 public final class Motion {
 
-    private final AHMDouble x, y, z;
+    private final NiceDouble x, y, z;
 
     /**
      * Create an empty constructor if we do not want initial values for our motion.
      */
     public Motion() {
-        this.x = new AHMDouble(0.0D);
-        this.y = new AHMDouble(0.0D);
-        this.z = new AHMDouble(0.0D);
+        this.x = new NiceDouble(0.0D);
+        this.y = new NiceDouble(0.0D);
+        this.z = new NiceDouble(0.0D);
     }
 
     /**
      *  Set an initial value for our base motion.
      */
     public Motion(final double x, final double y, final double z) {
-        this.x = new AHMDouble(x);
-        this.y = new AHMDouble(y);
-        this.z = new AHMDouble(z);
+        this.x = new NiceDouble(x);
+        this.y = new NiceDouble(y);
+        this.z = new NiceDouble(z);
     }
 
     /**
      *  Set an initial value for our base motion.
      */
-    public Motion(final AHMDouble x, final AHMDouble y, final AHMDouble z) {
-        this.x = new AHMDouble(x.get());
-        this.y = new AHMDouble(y.get());
-        this.z = new AHMDouble(z.get());
+    public Motion(final NiceDouble x, final NiceDouble y, final NiceDouble z) {
+        this.x = new NiceDouble(x.get());
+        this.y = new NiceDouble(y.get());
+        this.z = new NiceDouble(z.get());
     }
 
     public void set(final Vector vector) {

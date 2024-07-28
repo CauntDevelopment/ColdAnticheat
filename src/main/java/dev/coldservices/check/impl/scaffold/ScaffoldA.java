@@ -64,7 +64,7 @@ public class ScaffoldA extends Check implements PacketCheck {
                 MovingObjectPosition rayTrace = rayCast(tracker.getYaw(), tracker.getPitch(), false, boundingBox);
 
                 if (rayTrace == null || rayTrace.typeOfHit == MovingObjectPosition.MovingObjectType.MISS) {
-                    if(this.buffer.increase() > 6) {
+                    if(this.buffer.increase() > 8) {
                         this.failNoBan("");
                         this.executeSetback(true, false);
                     }

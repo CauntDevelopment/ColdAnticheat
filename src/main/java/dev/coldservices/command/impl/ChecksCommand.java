@@ -4,7 +4,7 @@ import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import dev.coldservices.CAC;
 import dev.coldservices.check.Check;
-import dev.coldservices.command.AHMCommand;
+import dev.coldservices.command.NiceCommand;
 import dev.coldservices.data.PlayerData;
 import dev.coldservices.data.PlayerDataManager;
 import dev.coldservices.util.string.ChatUtil;
@@ -15,12 +15,12 @@ import org.bukkit.entity.Player;
 import java.util.Arrays;
 import java.util.List;
 
-@CommandAlias("ahm")
-public class ChecksCommand extends AHMCommand {
+@CommandAlias("cac")
+public class ChecksCommand extends NiceCommand {
 
     @Subcommand("checks")
     @Description("View enabled checks for player")
-    @CommandPermission("ahm.checks")
+    @CommandPermission("coldac.checks")
     public void onCommand(final CommandSender sender, @Name("target") final OnlinePlayer onlinePlayer) {
         final Player player = onlinePlayer.getPlayer();
         final PlayerData data = CAC.get(PlayerDataManager.class).getPlayerData(player.getUniqueId());

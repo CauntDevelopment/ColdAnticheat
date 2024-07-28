@@ -124,7 +124,7 @@ public abstract class Check {
     }
 
     protected final void debug(final Object object, final Object... objects) {
-        data.getPlayer().sendMessage(ChatUtil.translate(String.format("&6AntiHaxerman Debug &8> " + ChatColor.WHITE + object.toString(), objects)));
+        data.getPlayer().sendMessage(ChatUtil.translate(String.format("&6Cold &8> " + ChatColor.WHITE + object.toString(), objects)));
     }
 
     protected boolean canClick() {

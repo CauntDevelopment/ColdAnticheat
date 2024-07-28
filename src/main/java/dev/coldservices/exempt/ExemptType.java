@@ -44,7 +44,7 @@ public enum ExemptType {
 
     SLIME(data -> data.getPositionTracker().isSlime() || data.getPositionTracker().isLastSlime()),
 
-    FALL_VELO(data -> data.getVelocityTracker().isFellDown() && data.getVelocityTracker().getVelocityTicks() < 4),
+    FALL_VELO(data -> data.getVelocityTracker().isFellDown()),
 
     SOUL_SAND(data -> data.getPositionTracker().isSoulSand() || data.getPositionTracker().isLastSoulSand()),
 

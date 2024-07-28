@@ -3,7 +3,7 @@ package dev.coldservices.command.impl;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import dev.coldservices.CAC;
-import dev.coldservices.command.AHMCommand;
+import dev.coldservices.command.NiceCommand;
 import dev.coldservices.data.PlayerData;
 import dev.coldservices.data.PlayerDataManager;
 import org.bukkit.command.CommandSender;
@@ -13,12 +13,12 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
-@CommandAlias("ahm")
-public class InfoCommand extends AHMCommand {
+@CommandAlias("cac")
+public class InfoCommand extends NiceCommand {
 
     @Subcommand("info")
     @Description("View information about a player")
-    @CommandPermission("ahm.info")
+    @CommandPermission("coldac.info")
     public void onCommand(final CommandSender sender, @Name("target") final OnlinePlayer onlinePlayer) {
         final Player player = onlinePlayer.getPlayer();
         final PlayerData data = CAC.get(PlayerDataManager.class).getPlayerData(player.getUniqueId());

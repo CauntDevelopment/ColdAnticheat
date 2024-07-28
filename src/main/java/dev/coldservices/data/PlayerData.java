@@ -92,7 +92,7 @@ public final class PlayerData {
         this.rotationChecks = this.checks.stream().filter(check -> check instanceof RotationCheck)
                 .map(check -> ((RotationCheck) check)).collect(Collectors.toList());
 
-        if (this.player.hasPermission("ahm.alerts")) CAC.get(AlertManager.class).toggleAlerts(this);
+        if (this.player.hasPermission("coldac.alerts")) CAC.get(AlertManager.class).toggleAlerts(this);
     }
 
     public boolean blockCheck(Material material) {
