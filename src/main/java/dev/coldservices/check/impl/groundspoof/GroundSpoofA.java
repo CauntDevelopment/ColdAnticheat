@@ -10,8 +10,6 @@ import dev.coldservices.update.PositionUpdate;
 @CheckManifest(name = "GroundSpoof", type = "A", description = "Detects ground spoofs (some of em)")
 public class GroundSpoofA extends Check implements PositionCheck {
 
-    private boolean scheduledDamage;
-
     public GroundSpoofA(PlayerData data) {
         super(data);
     }
@@ -25,15 +23,9 @@ public class GroundSpoofA extends Check implements PositionCheck {
 
         if(grounded && !serverGrounded) {
             if(this.buffer.increase() > 2) {
-                scheduledDamage = true;
-
                 this.failNoBan("claimed to be on ground");
             }
         } else {
-            if(scheduledDamage) {
-                data.getPlayer().setHealth(data.getPlayer().getHealth() - 8);
-                scheduledDamage = false;
-            }
             this.buffer.decrease();
         }
     }

@@ -7,6 +7,7 @@ import cc.ghast.packet.wrapper.packet.play.server.GPacketPlayServerUpdateAttribu
 import lombok.Getter;
 import dev.coldservices.data.PlayerData;
 import dev.coldservices.data.tracker.Tracker;
+import lombok.Setter;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
@@ -15,11 +16,14 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@Setter
 public final class AttributeTracker extends Tracker {
 
     private final Map<PotionEffectType, Integer> potions = new HashMap<>();
 
     private List<GPacketPlayServerUpdateAttributes.Snapshot> attributes = new ArrayList<>();
+
+    private boolean inventoryOpen;
 
     public AttributeTracker(final PlayerData data) {
         super(data);

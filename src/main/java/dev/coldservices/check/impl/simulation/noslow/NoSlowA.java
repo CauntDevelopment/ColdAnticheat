@@ -1,16 +1,11 @@
-package dev.coldservices.check.impl.noslow;
+package dev.coldservices.check.impl.simulation.noslow;
 
-import ac.artemis.packet.spigot.wrappers.GPacket;
-import cc.ghast.packet.wrapper.packet.play.client.GPacketPlayClientPosition;
 import dev.coldservices.check.Check;
 import dev.coldservices.check.api.annotations.CheckManifest;
-import dev.coldservices.check.type.PacketCheck;
 import dev.coldservices.check.type.PositionCheck;
 import dev.coldservices.data.PlayerData;
 import dev.coldservices.exempt.ExemptType;
 import dev.coldservices.update.PositionUpdate;
-import dev.coldservices.util.math.MathUtil;
-import dev.coldservices.util.player.PlayerUtil;
 
 @CheckManifest(name = "NoSlow", type = "A", description = "Detects moving while blocking, eating")
 public class NoSlowA extends Check implements PositionCheck {

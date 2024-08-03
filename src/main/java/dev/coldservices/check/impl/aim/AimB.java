@@ -18,15 +18,12 @@ public class AimB extends Check implements RotationCheck {
         float currentYaw = update.getYaw();
         float lastYaw = update.getLastYaw();
 
-        float currentPitch = update.getPitch();
-        float lastPitch = update.getLastPitch();
-
         float deltaYaw = update.getDeltaYaw();
         float deltaPitch = update.getDeltaPitch();
 
         if(currentYaw != lastYaw) {
-            if(deltaYaw > 2 && deltaPitch <= 0) {
-                if(this.buffer.increase() > 15) {
+            if(deltaYaw > 0.5 && deltaPitch <= 0) {
+                if(this.buffer.increase() > 25) {
                     this.failNoBan("deltaYaw: " + deltaYaw + " deltaPitch: " + deltaPitch);
                 }
             } else {
