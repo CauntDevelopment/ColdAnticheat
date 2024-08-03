@@ -19,6 +19,7 @@ public class StrafeA extends Check implements PositionCheck {
     // x
 
     // probably easy to bypass tho :(
+    // made by rawrl
 
     public StrafeA(PlayerData data) {
         super(data);
