@@ -22,7 +22,7 @@ public class AimB extends Check implements RotationCheck {
         float deltaPitch = update.getDeltaPitch();
 
         if(currentYaw != lastYaw) {
-            if(deltaYaw > 0.5 && deltaPitch <= 0) {
+            if(deltaYaw > 1.5 && deltaPitch == 0) {
                 if(this.buffer.increase() > 25) {
                     this.failNoBan("deltaYaw: " + deltaYaw + " deltaPitch: " + deltaPitch);
                 }

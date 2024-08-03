@@ -27,7 +27,8 @@ public class StrafeA extends Check implements PositionCheck {
 
     @Override
     public void handle(PositionUpdate update) {
-        boolean exempt = this.isExempt(ExemptType.JOIN, ExemptType.TELEPORTED_RECENTLY);
+        boolean exempt = this.isExempt(ExemptType.JOIN, ExemptType.TELEPORTED_RECENTLY, ExemptType.ICE, ExemptType.VELOCITY,
+                ExemptType.TELEPORT, ExemptType.CHUNK, ExemptType.WALL, ExemptType.BOAT, ExemptType.EXPLOSION);
 
         if(exempt) return;
 

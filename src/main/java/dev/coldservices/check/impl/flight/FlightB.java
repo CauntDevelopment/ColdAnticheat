@@ -37,6 +37,10 @@ public final class FlightB extends Check implements PositionCheck {
             return;
         }
 
+        if(data.getVelocityTracker().getTicksSinceVelocity() < 8 && data.getPositionTracker().getDeltaY() < 1) {
+            return;
+        }
+
         // Retrieve relevant data for analysis
         final boolean velocity = data.getVelocityTracker().getTicksSinceVelocity() == 1;
         final boolean lastVelocity = data.getVelocityTracker().isLastTickVelocity();
